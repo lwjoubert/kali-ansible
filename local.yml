@@ -31,6 +31,7 @@
         - whatweb 
         - wkhtmltopdf
         - python3-venv
+        - chisel
 
   - name: "Install Autorecon"
     ansible.builtin.pip:
