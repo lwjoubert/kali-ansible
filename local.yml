@@ -10,6 +10,7 @@
         - htop
         - tmux
         - vim-nox
+        - python3-psutil
 
   - name: install Kerbrute
     shell: go install github.com/ropnop/kerbrute@master
