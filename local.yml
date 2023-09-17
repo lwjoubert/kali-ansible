@@ -11,3 +11,5 @@
         - tmux
         - vim-nox
         - sublime-text
+  - name: install Kerbrute
+    shell: go install github.com/ropnop/kerbrute@master
