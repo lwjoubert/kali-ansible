@@ -1,0 +1,70 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+  - name: "!!! DEBUG !!!"
+    debug:
+      msg: "{{ ansible_env.SUDO_USER }}"
+#  - name: "!!! DEBUG 2 !!!"
+#    debug:
+#      var: ansible_facts
+
+  tasks:
+  - name: "Install packages"
+    package:
+      name:
+        - python3
+        - python3-pip
+        - seclists 
+        - curl 
+        - dnsrecon 
+        - enum4linux 
+        - feroxbuster 
+        - gobuster 
+        - impacket-scripts 
+        - nbtscan 
+        - nikto 
+        - nmap 
+        - onesixtyone 
+        - oscanner 
+        - redis-tools 
+        - smbclient 
+        - smbmap 
+        - snmp 
+        - sslscan 
+        - sipvicious 
+        - tnscmd10g 
+        - whatweb 
+        - wkhtmltopdf
+        - python3-venv
+
+  - name: "Install Autorecon"
+    ansible.builtin.pip:
+      name: git+https://github.com/Tib3rius/AutoRecon.git
+        
+        
+#  - name: "Install Threader3000"
+#    ansible.builtin.pip:
+#      name: threader3000
+
+    
+#  - name: "Fix PATH in zshrc"
+#    copy: 
+#      src: "{{ playbook_dir }}/files/zshrc"
+#      dest: "/home/kali/.zshrc"
+
+#  - name: "Cloning Kerbrute Repo"
+#    git:
+#      repo: "https://github.com/ropnop/kerbrute"
+#      dest: "/tmp/kerbrute"
+#  - name: "Building Kerbrute"
+#    shell: |
+#      cd /tmp/kerbrute
+#      go build
+#  - name: "Move Kerbrute to bin"
+#    copy:
+#      src: "/tmp/kerbrute/kerbrute"
+#      dest: "{{ ansible_env.HOME }}/.local/bin/"
+#      mode: 0750
