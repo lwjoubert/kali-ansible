@@ -4,6 +4,17 @@
   become: true
 
   tasks:
+  - name: "Requirement for Sublime-Text"
+    shell: |
+      wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+      echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+  - name: "Updating apt repo/cache"
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: "Upgrade all packages"
+    apt: upgrade=yes force_apt_get=yes
+
   - name: "Install packages"
     package:
       name:
@@ -32,6 +43,7 @@
         - wkhtmltopdf
         - python3-venv
         - chisel
+        - sublime-text
 
   - name: "Install Autorecon"
     ansible.builtin.pip:
@@ -40,6 +52,48 @@
   - name: "Install Threader3000"
     ansible.builtin.pip:
       name: threader3000
+
+  - name: "Download HOAXSHELL"
+    ansible.builtin.git:
+      repo: 'https://github.com/t3l3machus/hoaxshell'
+      dest: /opt/hoaxshell
+      force: yes
+
+  - name: "Requirement for HoaxShell"
+    shell: |
+      cd /opt/hoaxshell
+      sudo pip3 install -r requirements.txt
+      chmod +x hoaxshell.py
+
+  - name: "Requirement for linPEAS"
+    shell: |
+      cd /opt
+      mkdir linPEAS
+  - name: "Download linPEAS"
+    ansible.builtin.get_url:
+      url: https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh
+      dest: /opt/linPEAS/linpeas.sh
+      mode: 0750
+  - name: "Download linPEAS binary"
+    ansible.builtin.get_url:
+      url: https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas_linux_amd64
+      dest: /opt/linPEAS/linpeas_linux_amd64
+      mode: 0750
+
+  - name: "Requirement for Kerbrute"
+    shell: |
+      cd /opt
+      mkdir kerbrute
+  - name: "Download Kerberute binary (Win_x64)"
+    ansible.builtin.get_url:
+      url: https://github.com/ropnop/kerbrute/releases/tag/v1.0.3/kerbrute_windows_amd64.exe
+      dest: /opt/kerbrute/kerbrute_windows_amd64.exe
+      mode: 0750
+  - name: "Download Kerberute binary (Linux_amd64)"
+    ansible.builtin.get_url:
+      url: https://github.com/ropnop/kerbrute/releases/tag/v1.0.3/kerbrute_linux_amd64.exe
+      dest: /opt/kerbrute/kerbrute_linux_amd64.exe
+      mode: 0750
 
   - name: "Fix PATH in zshrc"
     copy: 
