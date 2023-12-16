@@ -53,6 +53,10 @@
     ansible.builtin.pip:
       name: threader3000
 
+  - name: "Install Updog"
+    ansible.builtin.pip:
+      name: updog
+
   - name: "Download HOAXSHELL"
     ansible.builtin.git:
       repo: 'https://github.com/t3l3machus/hoaxshell'
