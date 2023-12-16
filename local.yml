@@ -44,6 +44,7 @@
         - python3-venv
         - chisel
         - sublime-text
+        - krb5-user
 
   - name: "Install Autorecon"
     ansible.builtin.pip:
