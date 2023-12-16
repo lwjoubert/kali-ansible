@@ -259,3 +259,4 @@ fi
 
 export PATH=/home/kali/.local/bin:$PATH
 export PATH=/home/kali/.local/pipx/venvs/autorecon/bin:$PATH
+PROMPT=$PROMPT'%F{yellow}%}[%D{%y/%m/%f} %D{%H:%M:%S}]'
